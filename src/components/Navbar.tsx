@@ -3,31 +3,39 @@ import { LuLogIn } from "react-icons/lu";
 import { FaBagShopping } from "react-icons/fa6";
 const Navbar = () => {
   return (
-    <nav className="flex justify-center">
-      <div className="flex justify-between items-center px-8 py-4 text-white bg-gray-900 w-[1300px]">
+    <nav className="flex justify-center mx-4">
+      <div className="flex justify-between items-center px-8 py-4 text-black bg-white w-full mx-6">
         <div className="flex items-center gap-10">
           <div></div>
-          <h1 className="text-xl font-semibold ">NEX STORE</h1>
-          <ul className="flex gap-4 text-sm font-light items-center">
-            <li>All</li>
-            <li>Men</li>
-            <li>Women</li>
+          <h1 className="text-2xl font-semibold ">NEX STORE</h1>
+          <ul className="flex gap-4 text-md  items-center font-semibold">
+            <li className="hover:border-b-2 border-black cursor-pointer">
+              All
+            </li>
+            <li className="hover:border-b-2 border-black cursor-pointer">
+              Men
+            </li>
+            <li className="hover:border-b-2 border-black cursor-pointer">
+              Women
+            </li>
           </ul>
         </div>
         <div className="flex items-center gap-4">
-          <input
-            type="text"
-            placeholder="search"
-            className=" border border-gray-600 px-2 py-1 text-white rounded w-[450px]"
-          />
-          <div className="flex absolute ml-[410px] text-2xl">
-            <IoIosSearch />
+          <div className="relative w-[450px]">
+            <input
+              type="text"
+              placeholder="search"
+              className="w-full border border-gray-600 px-4 py-2 text-black rounded-lg pr-10"
+            />
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 text-2xl text-gray-600">
+              <IoIosSearch />
+            </div>
           </div>
           <button className="text-xl  ">
-            <LuLogIn />
+            <LuLogIn className="cursot-pointer" />
           </button>
           <button className="text-xl  ">
-            <FaBagShopping />
+            <FaBagShopping className="cursot-pointer" />
           </button>
         </div>
       </div>
