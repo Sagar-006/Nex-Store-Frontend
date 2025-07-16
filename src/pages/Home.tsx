@@ -11,7 +11,7 @@ const Home = () => {
     <motion.div
       initial={{ x: "100%", opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
-      transition={{ duration: 0.7, ease: "easeIn" }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
       className="min-h-screen scroll-smooth"
     >
       <Navbar />

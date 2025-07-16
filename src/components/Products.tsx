@@ -6,19 +6,22 @@ export type Product = {
   _id: string;
   name: string;
   price: number;
-  img: string;
+  image: string;
   description: string;
   category: string;
 };
 
 const Products = () => {
+  const baseUrl = import.meta.env.VITE_BACKEND_URL;
   const [allProducts, setAllProducts] = useState<Product[]>([]);
+
 
   const getData = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/api/user/products"); 
+      const res = await axios.get(`${baseUrl}/products`); 
       // console.log(res.data.response._id);
-      setAllProducts(res.data.response);
+      setAllProducts(res.data.response.slice(0,4));
+
     } catch (e) {
       console.log("Error fetching products:", e);
     }
@@ -28,7 +31,7 @@ const Products = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-2 gap-y-6 mt-6  pb-[100px] ">
+    <div className="grid grid-cols-2 gap-y-6 gap-x-0 mt-6  pb-[100px] ">
       {allProducts.map((item) => (
         <ProductCard key={item._id} _id={item._id} item={item} />
       ))}

@@ -40,7 +40,7 @@ export const Footer = () => {
             <li>Investors</li>
             <li>Sustainability</li>
             <li>Impact</li>
-            <li>Report a Concern</li>
+            {/* <li>Report a Concern</li> */}
           </ul>
         </div>
       </div>
