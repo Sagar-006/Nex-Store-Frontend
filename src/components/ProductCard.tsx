@@ -25,7 +25,7 @@ const ProductCard = ({item,_id}:any) => {
         className="h-full w-full object-contain"
       />
 
-      <p className="absolute bottom-7 left-1/2 transform -translate-x-1/2 text-lg font-semibold tracking-wide bg-white/80 backdrop-blur-sm px-5 py-2 rounded-full text-black">
+      <p className="absolute bottom-7 left-1/2 transform -translate-x-1/2 text-lg font-semibold tracking-wide bg-white/80 backdrop-blur-sm px-5 py-0 rounded-full text-black">
         {item.name}
       </p>
 

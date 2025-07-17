@@ -57,7 +57,7 @@ const Navbar = () => {
             </button>
           </div>
           <div className="cursor-pointer">
-            <button className="text-xl  ">
+            <button className="text-xl" onClick={() => navigate("/cart")}>
               <FaBagShopping className="" />
             </button>
           </div>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ProductCard from "./ProductCard";
+import { useAuth } from "@/hooks/useAuth";
 
 export type Product = {
   _id: string;
@@ -14,11 +15,14 @@ export type Product = {
 const Products = () => {
   const baseUrl = import.meta.env.VITE_BACKEND_URL;
   const [allProducts, setAllProducts] = useState<Product[]>([]);
+  const {loading,setLoading} = useAuth();
 
 
   const getData = async () => {
     try {
+      setLoading(true);
       const res = await axios.get(`${baseUrl}/products`); 
+      setLoading(false);
       // console.log(res.data.response._id);
       setAllProducts(res.data.response.slice(0,4));
 
