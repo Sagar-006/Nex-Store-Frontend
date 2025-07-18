@@ -15,7 +15,7 @@ const ProductCard = ({item,_id}:any) => {
   }
   return (
     <div
-      className="w-full h-[720px] relative rounded cursor-pointer"
+      className="w-full h-[720px] relative rounded cursor-pointer "
       key={_id}
       onClick={clickHandler}
     >

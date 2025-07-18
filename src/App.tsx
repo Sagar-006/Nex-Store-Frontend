@@ -12,13 +12,14 @@ import OrderHistory from './pages/OrderHistory';
 import AllProductList from './pages/AllProductList';
 import ProtectedRoute from './components/ProtectedRoute';
 import { Toaster } from "react-hot-toast";
+import GetCartItems from './utils/GetCartItems';
 // import Profile from './pages/Profile';
 
 function App() {
 
   return (
     <>
-    <Toaster position="top-center" reverseOrder={false} />
+      <Toaster position="top-center" reverseOrder={false} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />
@@ -35,8 +36,16 @@ function App() {
         <Route
           path="/cart"
           element={
-            <ProtectedRoute>
+            
               <Cart />
+            
+          }
+        />
+        <Route
+          path="/cart/allcartproducts"
+          element={
+            <ProtectedRoute>
+              <GetCartItems />
             </ProtectedRoute>
           }
         />

@@ -2,7 +2,7 @@ import { Globe } from "lucide-react";
 
 export const Footer = () => {
   return (
-    <footer className="bg-white text-gray-700 py-10 px-6 border-t">
+    <footer className="bg-white text-gray-700 py-10 px-6  border-t">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-md">
         {/* Column 1 */}
         <div>

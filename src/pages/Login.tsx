@@ -24,11 +24,14 @@ const Login = () => {
           password: loginData.password,
         });
         console.log(res.data);
-        localStorage.setItem("Authorization", res.data.token);
+        if (res.data.message === "Incorrect Password!"){
+          toast.error("Wrong Password try again!")
+        }
+          localStorage.setItem("Authorization", res.data.token);
         localStorage.setItem("selectedUser", JSON.stringify(res.data.user));
         localStorage.setItem("userId", res.data.user.userId);
 
-        if (res.data.message == "Login successfully") {
+        if (res.data.message == "Login successfully" ) {
           toast.success("Logged in successfully!");
           navigate("/products");
         }else{

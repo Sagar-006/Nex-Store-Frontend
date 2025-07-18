@@ -3,8 +3,9 @@ import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 import FeatureSection from "@/components/FeatureSection";
 import Products from "@/components/Products";
-import Loading from "@/components/Loading";
 import Footer from "@/components/Footer";
+import Marquee from "@/components/Marquee";
+
 
 const Home = () => {
   return (
@@ -17,7 +18,13 @@ const Home = () => {
       <Navbar />
       <Hero />
       <FeatureSection />
-      <Products />
+      <div className="flex justify-center">
+        <Products/>
+      </div>
+      <div>
+        <h1 className=" ml-32 text-2xl font-bold mb-4">Our Trending Products</h1>
+        <Marquee />
+      </div>
       <Footer />
     </motion.div>
   );

@@ -24,7 +24,8 @@ const Products = () => {
       const res = await axios.get(`${baseUrl}/products`); 
       setLoading(false);
       // console.log(res.data.response._id);
-      setAllProducts(res.data.response.slice(0,4));
+       const shuffled = res.data.response.sort(() => 0.5 - Math.random());
+      setAllProducts(shuffled.slice(0,4));
 
     } catch (e) {
       console.log("Error fetching products:", e);
@@ -35,7 +36,7 @@ const Products = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-2 gap-y-6 gap-x-0 mt-6  pb-[100px] ">
+    <div className="grid grid-cols-2 gap-y-6 mt-6 place-items-center pb-[50px] w-[1000px]">
       {allProducts.map((item) => (
         <ProductCard key={item._id} _id={item._id} item={item} />
       ))}

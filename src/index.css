@@ -87,6 +87,10 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+.paused {
+  animation-play-state: paused;
+}
+
 
 .hide-scrollbar::-webkit-scrollbar {
   display: none; /* Chrome, Safari and Opera */
@@ -158,6 +162,8 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
+
+
 
 @layer base {
   * {

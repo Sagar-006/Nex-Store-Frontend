@@ -12,8 +12,14 @@ const ProductDetail = () => {
   const baseUrl = import.meta.env.VITE_BACKEND_URL;
   const sizes: sizeType[] = ["XS", "S", "M", "L", "XL", "XXL"];
   const navigate = useNavigate();
-  const { loading, setLoading, quantity, setQuantity, selectedSize, setSelectedSize } =
-    useAuth();
+  const {
+    loading,
+    setLoading,
+    quantity,
+    setQuantity,
+    selectedSize,
+    setSelectedSize,
+  } = useAuth();
   const { _id } = useParams();
   const [data, setData] = useState<any>(null);
 
@@ -34,7 +40,7 @@ const ProductDetail = () => {
   };
 
   useEffect(() => {
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0);
     if (_id) {
       getData();
     }

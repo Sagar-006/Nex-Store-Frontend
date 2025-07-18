@@ -8,12 +8,12 @@ const config: Config = {
       
       keyframes: {
         marquee: {
-          "0%": { transform: "translateX(0%)" },
+          "0%": { transform: "translateX(100%)" },
           "100%": { transform: "translateX(-100%)" },
         },
       },
       animation: {
-        marquee: "marquee var(--duration) linear infinite",
+        marquee:"marquee 15s linear infinite",
       },
     },
     

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const Navbar = () => {
   const navigate = useNavigate();
   return (
-    <nav className="flex justify-center mx-4 items-center">
+    <nav className="flex justify-center mx-4 items-center pt-4">
       <div className="flex justify-between items-center px-8 py-4 text-black bg-white w-full mx-6">
         <div className="flex items-center gap-10">
           <div className="w-[40px] h-[40px] ">
@@ -57,7 +57,10 @@ const Navbar = () => {
             </button>
           </div>
           <div className="cursor-pointer">
-            <button className="text-xl" onClick={() => navigate("/cart")}>
+            <button
+              className="text-xl"
+              onClick={() => navigate("/cart/allcartproducts")}
+            >
               <FaBagShopping className="" />
             </button>
           </div>
