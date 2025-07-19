@@ -29,6 +29,8 @@ interface AuthTypes {
   setQuantity: React.Dispatch<React.SetStateAction<number>>;
   selectedSize:string;
   setSelectedSize:React.Dispatch<React.SetStateAction<string>>;
+  login:boolean;
+  setLogin:React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AuthContext = createContext<AuthTypes | undefined>(undefined);
@@ -52,6 +54,9 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const [selectedSize, setSelectedSize] = useState<string>("M");
 
+  const [login, setLogin] = useState<boolean>(false);
+
+
 
   return (
     <AuthContext.Provider
@@ -67,7 +72,9 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         quantity,
         setQuantity,
         selectedSize,
-        setSelectedSize
+        setSelectedSize,
+        login,
+        setLogin
       }}
     >
       {children}

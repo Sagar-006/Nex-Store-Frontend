@@ -1,18 +1,36 @@
+import axios from "axios";
+import toast from "react-hot-toast";
 import { FaHeart, FaTrashAlt } from "react-icons/fa";
 import { FiMinus, FiPlus } from "react-icons/fi";
 
 interface CartItemProps {
-  image: string;
-  name: string;
-  variant: string;
-  size: string;
-  color: string;
-  quantity: number;
-  price: number;
+  item: any;
+  removeItemFromUI:(id:string) => void;
 }
 
-const CartItem = ({item }:any) => {
-    console.log(item)
+const CartItem = ({item,removeItemFromUI }:CartItemProps) => {
+    const backend_url = import.meta.env.VITE_BACKEND_URL;
+    console.log(item);
+    
+    const deleteItem = async(productId:string) => {
+    try{
+      const token = localStorage.getItem("Authorization");
+         const res = await axios.delete(`${backend_url}/product/cart/remove`, {
+           data: { productId },
+           headers:{
+            Authorization:`Bearer ${token}`
+           }
+         });
+
+         console.log(res);
+      toast.success("Item Removed!");
+      
+      removeItemFromUI(productId)
+
+    }catch(e){
+      console.log(e);
+    }
+  }
   return (
     <div className="flex items-start gap-4 mb-6 border-b pb-4">
       <img
@@ -29,7 +47,7 @@ const CartItem = ({item }:any) => {
         <div className="flex items-center justify-between mt-4">
           <div className="flex gap-4 text-xl text-gray-600">
             <FaHeart className="cursor-pointer" />
-            <FaTrashAlt className="cursor-pointer" />
+            <FaTrashAlt className="cursor-pointer" onClick={() => deleteItem(item.productId._id)}/>
           </div>
           <div className="flex items-center gap-4">
             <FiMinus className="cursor-pointer" />

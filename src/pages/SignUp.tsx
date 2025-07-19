@@ -85,18 +85,18 @@ const SignUp = () => {
                 type="email"
                 placeholder="Email"
                 className={`w-full border px-4 py-3 text-sm ${
-                  emailData ? "border-red-600 text-red-600" : "border-black"
+                  emailData ? "border-black text-black" : "border-black"
                 }`}
                 required
                 onChange={changeHandler}
                 name="email"
               />
-              {emailData && (
-                <FiAlertCircle className="absolute right-3 top-1/2 -translate-y-1/2 text-red-600 text-xl" />
-              )}
+              {/* {emailData && (
+                <FiAlertCircle className="absolute right-3 top-1/2 -translate-y-1/2 text-black text-xl" />
+              )} */}
             </div>
             {emailData && (
-              <p className="text-sm text-red-600 mt-1">Enter email address</p>
+              <p className="text-sm text-black mt-1">Enter email address</p>
             )}
           </div>
 

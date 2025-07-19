@@ -7,11 +7,11 @@ import { AuthProvider } from './context/AuthContext.tsx'
 // import "@fontsource/anton";
 
 createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
+  
     <BrowserRouter>
       <AuthProvider>
         <App/>
       </AuthProvider>
     </BrowserRouter>
-  </React.StrictMode>
+  
 );
