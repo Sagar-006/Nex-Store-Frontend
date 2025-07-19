@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Loading from "@/components/Loading";
 import { motion } from "framer-motion";
-import { ShoppingCart, Smile } from "lucide-react";
-import { ShimmerButton } from "@/components/magicui/shimmer-button";
+import { ShoppingCart, } from "lucide-react";
 import CartItem from "@/components/CartItem";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 
 interface Product {
   _id: string;
@@ -28,8 +28,9 @@ const GetCartItems = () => {
   const backend_url = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const {loading,setLoading,finalPrice,setFinalPrice} = useAuth();
   const token = localStorage.getItem("Authorization");
+  const [subtotal,setSubTotal] = useState(0);
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -40,18 +41,34 @@ const GetCartItems = () => {
             Authorization: `Bearer ${token}`,
           },
         });
+          // console.log(res.data.findCart.items)
 
         setCartItems(res.data.findCart.items);
         // console.log(res.data.findCart.items._id);
         setLoading(false);
+        
       } catch (err) {
         console.error("Failed to fetch cart items:", err);
         setLoading(false);
       }
     };
-
     fetchCartItems();
   }, [backend_url, token]);
+
+  const calculateTotalPrice = () => {
+    let total = 0;
+    for (let i = 0; i < cartItems.length; i++) {
+      total += cartItems[i].productId.price * cartItems[i].quantity;
+    }
+    setSubTotal(total);
+    const deliverycharges:number = 111;
+    const fullfinal:number = total+deliverycharges;
+    setFinalPrice(fullfinal);
+  };
+
+  useEffect(() => {
+    calculateTotalPrice();
+  }, [cartItems]);
 
   const removeItemFromUI = (productId: string) => {
     setCartItems((prev) =>
@@ -81,42 +98,128 @@ const GetCartItems = () => {
           </button>
         </div>
       ) : (
-        <div className="p-6 max-w-4xl mb-10 mx-auto bg-white rounded-xl shadow-md mt-6 flex gap-20">
-          <div>
-            <h2 className="text-2xl font-semibold mb-6">Cart</h2>
-            {cartItems.map((item, index) => (
-              <CartItem
-                key={index}
-                item={item}
-                removeItemFromUI={removeItemFromUI}
-                // cartId={findCart.items._id}
-              />
-            ))}
+        <div>
+          <div className="p-6 max-w-4xl mb-10 mx-auto bg-white rounded-xl shadow-md mt-6 flex gap-20">
+            <div>
+              <h2 className="text-2xl font-semibold mb-6">Cart</h2>
+              {cartItems.map((item, index) => (
+                <CartItem
+                  key={index}
+                  item={item}
+                  removeItemFromUI={removeItemFromUI}
+                  // cartId={findCart.items._id}
+                />
+              ))}
+            </div>
+
+            <div className="w-full lg:w-96 bg-white p-6 rounded-lg shadow-md h-fit">
+              <h3 className="text-xl font-semibold mb-4">Order Summary</h3>
+              <div className="flex justify-between py-2 text-gray-600">
+                <span>Subtotal</span>
+                <span>₹{subtotal}.00</span>
+              </div>
+              <div className="flex justify-between py-2 text-gray-600">
+                <span>Delivery</span>
+                <span>₹111.00</span>
+              </div>
+              <div className="flex justify-between py-2 text-gray-600">
+                <span>Discount</span>
+                <span>-</span>
+              </div>
+              <hr className="my-4" />
+              <div className="flex justify-between font-semibold text-lg">
+                <span>Total</span>
+                <span>₹{finalPrice}.00</span>
+              </div>
+
+              <button className="mt-6 w-full bg-black text-white py-3 rounded-lg font-semibold">
+                Checkout
+              </button>
+            </div>
           </div>
+          <div className="max-w-4xl mx-auto p-6">
+            <h2 className="text-2xl font-semibold mb-1">Shipping address</h2>
+            <p className="text-sm text-gray-600 mb-6">
+              {/* Address lookup powered by Google, view{" "}
+              <a href="#" className="underline">
+                Privacy policy
+              </a>{" "}
+              To opt-out change{" "}
+              <a href="#" className="underline">
+                cookie preferences.
+              </a> */}
+            </p>
+            <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* First Row */}
+              <div>
+                <label className="block text-sm font-medium mb-1">
+                  FIRST NAME *
+                </label>
+                <input
+                  type="text"
+                  className="w-full border border-gray-300 rounded px-3 py-2"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">
+                  LAST NAME *
+                </label>
+                <input
+                  type="text"
+                  className="w-full border border-gray-300 rounded px-3 py-2"
+                />
+              </div>
 
-          <div className="w-full lg:w-96 bg-white p-6 rounded-lg shadow-md h-fit">
-            <h3 className="text-xl font-semibold mb-4">Order Summary</h3>
-            <div className="flex justify-between py-2 text-gray-600">
-              <span>Subtotal</span>
-              <span>₹222.00</span>
-            </div>
-            <div className="flex justify-between py-2 text-gray-600">
-              <span>Delivery</span>
-              <span>₹111.00</span>
-            </div>
-            <div className="flex justify-between py-2 text-gray-600">
-              <span>Discount</span>
-              <span>-</span>
-            </div>
-            <hr className="my-4" />
-            <div className="flex justify-between font-semibold text-lg">
-              <span>Total</span>
-              <span>₹122.00</span>
-            </div>
+              {/* Second Row */}
+              <div>
+                <label className="block text-sm font-medium mb-1">
+                  ADDRESS 1 – STREET 
+                </label>
+                <input
+                  type="text"
+                  className="w-full border border-gray-300 rounded px-3 py-2"
+                />
+              </div>
 
-            <button className="mt-6 w-full bg-black text-white py-3 rounded-lg font-semibold">
-              Checkout
-            </button>
+              {/* Third Row */}
+              <div>
+                <label className="block text-sm font-medium mb-1">
+                  ZIP CODE *
+                </label>
+                <input
+                  type="text"
+                  className="w-full border border-gray-300 rounded px-3 py-2"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">CITY *</label>
+                <input
+                  type="text"
+                  className="w-full border border-gray-300 rounded px-3 py-2"
+                />
+              </div>
+
+              {/* Fourth Row */}
+              <div>
+                <label className="block text-sm font-medium mb-1">
+                  STATE *
+                </label>
+                <select className="w-full border border-gray-300 rounded px-3 py-2">
+                  <option>Select...</option>
+                  <option>Maharashtra</option>
+                  <option>Karnataka</option>
+                  <option>Delhi</option>
+                  {/* Add more options as needed */}
+                </select>
+              </div>
+            </form>
+
+            {/* Submit Button */}
+            <div className="mt-6">
+              <button className="bg-black text-white px-6 py-3 font-semibold rounded hover:bg-gray-800">
+                Continue to shipping method
+              </button>
+            </div>
           </div>
         </div>
       )}

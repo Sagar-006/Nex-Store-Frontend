@@ -22,7 +22,6 @@ const SignUp = () => {
           username:signupData.username,
           email: signupData.email,
           password: signupData.password,
-          // role:"user"
         });
         console.log(res.data);
         localStorage.setItem("Authorization", res.data.token);
@@ -32,7 +31,7 @@ const SignUp = () => {
           toast.success("Signup successfully!");
           navigate("/products");      
         }
-        toast.error(res.data.error);
+        
       } catch (e) {
         
         console.log("Error fetching products:", e);
@@ -91,9 +90,6 @@ const SignUp = () => {
                 onChange={changeHandler}
                 name="email"
               />
-              {/* {emailData && (
-                <FiAlertCircle className="absolute right-3 top-1/2 -translate-y-1/2 text-black text-xl" />
-              )} */}
             </div>
             {emailData && (
               <p className="text-sm text-black mt-1">Enter email address</p>
@@ -129,7 +125,6 @@ const SignUp = () => {
           <span>Login</span>
         </div>
 
-        {/* Secure Info */}
         <div className="flex items-center justify-center mt-8 text-sm gap-2">
           <FiLock />
           <span>All data is kept secure</span>
