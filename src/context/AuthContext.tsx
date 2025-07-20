@@ -16,6 +16,13 @@ interface SignupData {
   email: string;
   password: string;
 }
+export interface ShippingAddress {
+  firstname:string;
+  lastname:string;
+  street:string;
+  zip:string;
+  city:string;
+}
 interface AuthTypes {
   loginData: LoginData;
   setLoginData: React.Dispatch<React.SetStateAction<LoginData>>;
@@ -33,6 +40,8 @@ interface AuthTypes {
   setLogin:React.Dispatch<React.SetStateAction<boolean>>;
   finalPrice:number;
   setFinalPrice:React.Dispatch<React.SetStateAction<number>>;
+  shippingAddress:ShippingAddress;
+  setShippingAddress:React.Dispatch<React.SetStateAction<ShippingAddress>>;
 }
 
 const AuthContext = createContext<AuthTypes | undefined>(undefined);
@@ -48,6 +57,13 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     password: "",
   });
 
+  const [shippingAddress,setShippingAddress] = useState<ShippingAddress>({
+    firstname:"",
+    lastname:"",
+    street:"",
+    city:"",
+    zip: "",
+  })
   const [emailData, setEmailData] = useState<boolean>(true);
 
   const [loading, setLoading] = useState<boolean>(true);
@@ -78,7 +94,10 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         login,
         setLogin,
         finalPrice,
-        setFinalPrice
+        setFinalPrice,
+        shippingAddress,
+        setShippingAddress,
+        
       }}
     >
       {children}

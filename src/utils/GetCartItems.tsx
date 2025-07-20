@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Loading from "@/components/Loading";
 import { motion } from "framer-motion";
-import { ShoppingCart, } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import CartItem from "@/components/CartItem";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
+import toast from "react-hot-toast";
 
 interface Product {
   _id: string;
@@ -24,13 +25,23 @@ interface CartItem {
   size: string;
 }
 
+// interface orderCreated{
+
+// }
 const GetCartItems = () => {
   const backend_url = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const {loading,setLoading,finalPrice,setFinalPrice} = useAuth();
+  const {
+    loading,
+    setLoading,
+    finalPrice,
+    setFinalPrice,
+    shippingAddress,
+    setShippingAddress,
+  } = useAuth();
   const token = localStorage.getItem("Authorization");
-  const [subtotal,setSubTotal] = useState(0);
+  const [subtotal, setSubTotal] = useState(0);
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -41,12 +52,11 @@ const GetCartItems = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-          // console.log(res.data.findCart.items)
+        // console.log(res.data.findCart.items)
 
         setCartItems(res.data.findCart.items);
         // console.log(res.data.findCart.items._id);
         setLoading(false);
-        
       } catch (err) {
         console.error("Failed to fetch cart items:", err);
         setLoading(false);
@@ -61,8 +71,8 @@ const GetCartItems = () => {
       total += cartItems[i].productId.price * cartItems[i].quantity;
     }
     setSubTotal(total);
-    const deliverycharges:number = 111;
-    const fullfinal:number = total+deliverycharges;
+    const deliverycharges: number = 111;
+    const fullfinal: number = total + deliverycharges;
     setFinalPrice(fullfinal);
   };
 
@@ -74,6 +84,62 @@ const GetCartItems = () => {
     setCartItems((prev) =>
       prev.filter((item) => item.productId._id !== productId)
     );
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast.success("Address added!");
+    console.log(shippingAddress);
+  };
+  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // e.preventDefault();
+    setShippingAddress((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+    // console.log(shippingAddress);
+  };
+
+  const orderCreate = async () => {
+    const token = localStorage.getItem("Authorization");
+
+    const formattedShippingAddress = {
+      firstname: shippingAddress.firstname,
+      lastname: shippingAddress.lastname,
+      street: shippingAddress.street, // assuming "address" is full address
+      city: shippingAddress.city,
+      zip: shippingAddress.zip,
+    };
+
+    try {
+      console.log(shippingAddress);
+      if(!shippingAddress){
+        toast.error("Add address");
+        return;
+      }
+      const res = await axios.post(
+        `${backend_url}/order`,
+        {
+          items: cartItems.map((item) => ({
+            productId: item.productId._id, 
+            quantity: item.quantity,
+            size: item.size,
+          })),
+          shippingAddress: formattedShippingAddress,
+          totalAmount: finalPrice,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(res);
+      toast.success("Order successful!");
+    } catch (e) {
+      console.log(e);
+      toast.error("Order failed!");
+    }
   };
 
   return (
@@ -132,11 +198,15 @@ const GetCartItems = () => {
                 <span>₹{finalPrice}.00</span>
               </div>
 
-              <button className="mt-6 w-full bg-black text-white py-3 rounded-lg font-semibold">
+              <button
+                className="mt-6 w-full bg-black text-white py-3 rounded-lg font-semibold"
+                onClick={() => orderCreate()}
+              >
                 Checkout
               </button>
             </div>
           </div>
+
           <div className="max-w-4xl mx-auto p-6">
             <h2 className="text-2xl font-semibold mb-1">Shipping address</h2>
             <p className="text-sm text-gray-600 mb-6">
@@ -149,13 +219,18 @@ const GetCartItems = () => {
                 cookie preferences.
               </a> */}
             </p>
-            <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <form
+              onSubmit={handleSubmit}
+              className="grid grid-cols-1 md:grid-cols-2 gap-6"
+            >
               {/* First Row */}
               <div>
                 <label className="block text-sm font-medium mb-1">
                   FIRST NAME *
                 </label>
                 <input
+                  onChange={changeHandler}
+                  name="firstname"
                   type="text"
                   className="w-full border border-gray-300 rounded px-3 py-2"
                 />
@@ -165,6 +240,9 @@ const GetCartItems = () => {
                   LAST NAME *
                 </label>
                 <input
+                  onChange={changeHandler}
+                  name="lastname"
+                  required
                   type="text"
                   className="w-full border border-gray-300 rounded px-3 py-2"
                 />
@@ -173,9 +251,12 @@ const GetCartItems = () => {
               {/* Second Row */}
               <div>
                 <label className="block text-sm font-medium mb-1">
-                  ADDRESS 1 – STREET 
+                  ADDRESS 1 – STREET
                 </label>
                 <input
+                  onChange={changeHandler}
+                  name="street"
+                  required
                   type="text"
                   className="w-full border border-gray-300 rounded px-3 py-2"
                 />
@@ -187,6 +268,9 @@ const GetCartItems = () => {
                   ZIP CODE *
                 </label>
                 <input
+                  onChange={changeHandler}
+                  name="zip"
+                  required
                   type="text"
                   className="w-full border border-gray-300 rounded px-3 py-2"
                 />
@@ -194,6 +278,9 @@ const GetCartItems = () => {
               <div>
                 <label className="block text-sm font-medium mb-1">CITY *</label>
                 <input
+                  onChange={changeHandler}
+                  name="city"
+                  required
                   type="text"
                   className="w-full border border-gray-300 rounded px-3 py-2"
                 />
@@ -204,22 +291,18 @@ const GetCartItems = () => {
                 <label className="block text-sm font-medium mb-1">
                   STATE *
                 </label>
-                <select className="w-full border border-gray-300 rounded px-3 py-2">
-                  <option>Select...</option>
-                  <option>Maharashtra</option>
-                  <option>Karnataka</option>
-                  <option>Delhi</option>
-                  {/* Add more options as needed */}
-                </select>
+              </div>
+              <div className="mt-6">
+                <button
+                  type="submit"
+                  className="bg-black text-white px-6 py-3 font-semibold rounded hover:bg-gray-800"
+                >
+                  Add address
+                </button>
               </div>
             </form>
 
             {/* Submit Button */}
-            <div className="mt-6">
-              <button className="bg-black text-white px-6 py-3 font-semibold rounded hover:bg-gray-800">
-                Continue to shipping method
-              </button>
-            </div>
           </div>
         </div>
       )}
