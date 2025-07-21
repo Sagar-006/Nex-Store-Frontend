@@ -3,10 +3,13 @@ import { LuLogIn } from "react-icons/lu";
 import { FaBagShopping } from "react-icons/fa6";
 import Logo from "@/assets/Nex Logo.jpeg";
 import { useNavigate } from "react-router-dom";
+import { SmoothCursor } from "@/components/magicui/SmoothCursor";
+
 
 const Navbar = () => {
   const navigate = useNavigate();
   return (
+    <SmoothCursor>
     <nav className="flex justify-center mx-4 items-center pt-4">
       <div className="flex justify-between items-center px-8 py-4 text-black bg-white w-full mx-6">
         <div className="flex items-center gap-10">
@@ -67,6 +70,7 @@ const Navbar = () => {
         </div>
       </div>
     </nav>
+    </SmoothCursor>
   );
 };
 

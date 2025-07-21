@@ -1,6 +1,8 @@
 import { Globe } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export const Footer = () => {
+  const navigate = useNavigate();
   return (
     <footer className="bg-white text-gray-700 py-10 px-6  border-t">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-md">
@@ -34,10 +36,10 @@ export const Footer = () => {
         <div>
           <h3 className="font-semibold mb-3">Company</h3>
           <ul className="space-y-2">
-            <li>About Nex</li>
-            <li>News</li>
+            <li onClick={() => navigate('/about')} className="cursor-pointer">About Nex</li>
+            <li onClick={() => navigate('/terms')} className="cursor-pointer">Terms & conditions</li>
             <li>Careers</li>
-            <li>Investors</li>
+            <li onClick={() => navigate('/terms')} className="cursor-pointer">Privacy Policy </li>
             <li>Sustainability</li>
             <li>Impact</li>
             {/* <li>Report a Concern</li> */}

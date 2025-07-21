@@ -49,7 +49,9 @@ const Cart = () => {
     }
   }, [productId, quantity, size, navigate, backend_url]);
 
-  return <div>Redirecting to cart...</div>;
+  return (
+  <div className=" w-full h-[100vh]">Redirecting to cart...</div>
+  )
 };
 
 export default Cart;

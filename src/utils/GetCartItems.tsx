@@ -9,6 +9,10 @@ import Footer from "@/components/Footer";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import toast from "react-hot-toast";
+import { FiPackage } from "react-icons/fi";
+// import { GradientButton } from "lightswind";
+
+
 
 interface Product {
   _id: string;
@@ -42,6 +46,7 @@ const GetCartItems = () => {
   } = useAuth();
   const token = localStorage.getItem("Authorization");
   const [subtotal, setSubTotal] = useState(0);
+  console.log(shippingAddress)
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -111,12 +116,18 @@ const GetCartItems = () => {
       zip: shippingAddress.zip,
     };
 
+    if (
+      !formattedShippingAddress.firstname ||
+      !formattedShippingAddress.lastname ||
+      !formattedShippingAddress.street ||
+      !formattedShippingAddress.city ||
+      !formattedShippingAddress.zip
+    ) {
+      return toast.error("Add address!");
+    }
+
     try {
-      console.log(shippingAddress);
-      if(!shippingAddress){
-        toast.error("Add address");
-        return;
-      }
+      
       const res = await axios.post(
         `${backend_url}/order`,
         {
@@ -136,6 +147,7 @@ const GetCartItems = () => {
       );
       console.log(res);
       toast.success("Order successful!");
+      navigate("/getallorders");
     } catch (e) {
       console.log(e);
       toast.error("Order failed!");
@@ -196,6 +208,7 @@ const GetCartItems = () => {
               <div className="flex justify-between font-semibold text-lg">
                 <span>Total</span>
                 <span>₹{finalPrice}.00</span>
+                {/* <GradientButton>hi</GradientButton> */}
               </div>
 
               <button
@@ -204,6 +217,13 @@ const GetCartItems = () => {
               >
                 Checkout
               </button>
+            </div>
+            <div
+              className="flex flex-row-reverse rounded-2xl border  border-[0.5 px] h-[40px] items-center justify-center px-2 hover:cursor-pointer "
+              onClick={() => navigate(`/getallorders`)}
+            >
+              <h1>Orders</h1>
+              <FiPackage className="text-2xl ml-2" />
             </div>
           </div>
 
