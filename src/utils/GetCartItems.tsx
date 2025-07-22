@@ -10,9 +10,6 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import toast from "react-hot-toast";
 import { FiPackage } from "react-icons/fi";
-// import { GradientButton } from "lightswind";
-
-
 
 interface Product {
   _id: string;
@@ -29,9 +26,6 @@ interface CartItem {
   size: string;
 }
 
-// interface orderCreated{
-
-// }
 const GetCartItems = () => {
   const backend_url = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
@@ -176,21 +170,23 @@ const GetCartItems = () => {
           </button>
         </div>
       ) : (
-        <div>
-          <div className="p-6 max-w-4xl mb-10 mx-auto bg-white rounded-xl shadow-md mt-6 flex gap-20">
-            <div>
+        <>
+          {/* Cart & Summary Section */}
+          <div className="p-4 sm:p-6 mb-10 mx-auto max-w-7xl bg-white rounded-xl shadow-md mt-6 flex flex-col lg:flex-row gap-8">
+            {/* Cart Items */}
+            <div className="w-full lg:w-2/3">
               <h2 className="text-2xl font-semibold mb-6">Cart</h2>
               {cartItems.map((item, index) => (
                 <CartItem
                   key={index}
                   item={item}
                   removeItemFromUI={removeItemFromUI}
-                  // cartId={findCart.items._id}
                 />
               ))}
             </div>
 
-            <div className="w-full lg:w-96 bg-white p-6 rounded-lg shadow-md h-fit">
+            {/* Order Summary */}
+            <div className="w-full lg:w-1/3 bg-white p-6 rounded-lg shadow-md h-fit">
               <h3 className="text-xl font-semibold mb-4">Order Summary</h3>
               <div className="flex justify-between py-2 text-gray-600">
                 <span>Subtotal</span>
@@ -208,18 +204,20 @@ const GetCartItems = () => {
               <div className="flex justify-between font-semibold text-lg">
                 <span>Total</span>
                 <span>₹{finalPrice}.00</span>
-                {/* <GradientButton>hi</GradientButton> */}
               </div>
-
               <button
                 className="mt-6 w-full bg-black text-white py-3 rounded-lg font-semibold"
-                onClick={() => orderCreate()}
+                onClick={orderCreate}
               >
                 Checkout
               </button>
             </div>
+          </div>
+
+          {/* Orders Button */}
+          <div className="flex justify-end max-w-7xl mx-auto px-4 mb-6">
             <div
-              className="flex flex-row-reverse rounded-2xl border  border-[0.5 px] h-[40px] items-center justify-center px-2 hover:cursor-pointer "
+              className="flex flex-row-reverse rounded-2xl border h-[40px] items-center justify-center px-4 hover:cursor-pointer"
               onClick={() => navigate(`/getallorders`)}
             >
               <h1>Orders</h1>
@@ -227,23 +225,13 @@ const GetCartItems = () => {
             </div>
           </div>
 
-          <div className="max-w-4xl mx-auto p-6">
+          {/* Address Form */}
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <h2 className="text-2xl font-semibold mb-1">Shipping address</h2>
-            <p className="text-sm text-gray-600 mb-6">
-              {/* Address lookup powered by Google, view{" "}
-              <a href="#" className="underline">
-                Privacy policy
-              </a>{" "}
-              To opt-out change{" "}
-              <a href="#" className="underline">
-                cookie preferences.
-              </a> */}
-            </p>
             <form
               onSubmit={handleSubmit}
-              className="grid grid-cols-1 md:grid-cols-2 gap-6"
+              className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4"
             >
-              {/* First Row */}
               <div>
                 <label className="block text-sm font-medium mb-1">
                   FIRST NAME *
@@ -268,10 +256,9 @@ const GetCartItems = () => {
                 />
               </div>
 
-              {/* Second Row */}
               <div>
                 <label className="block text-sm font-medium mb-1">
-                  ADDRESS 1 – STREET
+                  ADDRESS – STREET
                 </label>
                 <input
                   onChange={changeHandler}
@@ -281,8 +268,6 @@ const GetCartItems = () => {
                   className="w-full border border-gray-300 rounded px-3 py-2"
                 />
               </div>
-
-              {/* Third Row */}
               <div>
                 <label className="block text-sm font-medium mb-1">
                   ZIP CODE *
@@ -305,14 +290,10 @@ const GetCartItems = () => {
                   className="w-full border border-gray-300 rounded px-3 py-2"
                 />
               </div>
-
-              {/* Fourth Row */}
               <div>
-                <label className="block text-sm font-medium mb-1">
-                  STATE *
-                </label>
+               
               </div>
-              <div className="mt-6">
+              <div className="md:col-span-2 flex justify-end">
                 <button
                   type="submit"
                   className="bg-black text-white px-6 py-3 font-semibold rounded hover:bg-gray-800"
@@ -321,14 +302,13 @@ const GetCartItems = () => {
                 </button>
               </div>
             </form>
-
-            {/* Submit Button */}
           </div>
-        </div>
+        </>
       )}
       <Footer />
     </div>
   );
+
 };
 
 export default GetCartItems;

@@ -15,31 +15,31 @@ export type Product = {
 const Products = () => {
   const baseUrl = import.meta.env.VITE_BACKEND_URL;
   const [allProducts, setAllProducts] = useState<Product[]>([]);
-  const {loading,setLoading} = useAuth();
-
+  const { loading, setLoading } = useAuth();
 
   const getData = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${baseUrl}/products`); 
+      const res = await axios.get(`${baseUrl}/products`);
       setLoading(false);
-      // console.log(res.data.response._id);
-       const shuffled = res.data.response.sort(() => 0.5 - Math.random());
-      setAllProducts(shuffled.slice(0,4));
-
+      const shuffled = res.data.response.sort(() => 0.5 - Math.random());
+      setAllProducts(shuffled.slice(0, 4));
     } catch (e) {
       console.log("Error fetching products:", e);
     }
   };
+
   useEffect(() => {
     getData();
   }, []);
 
   return (
-    <div className="grid grid-cols-2 gap-y-6 mt-6 place-items-center pb-[50px] w-[1000px]">
-      {allProducts.map((item) => (
-        <ProductCard key={item._id} _id={item._id} item={item} />
-      ))}
+    <div className="max-w-screen-xl mx-auto px-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-6 mt-6 pb-12">
+        {allProducts.map((item) => (
+          <ProductCard key={item._id} _id={item._id} item={item} />
+        ))}
+      </div>
     </div>
   );
 };

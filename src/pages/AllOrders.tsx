@@ -1,4 +1,4 @@
-import MyOrder from "@/components/MyOrder";
+import { MyOrder } from "@/components/MyOrder";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -30,8 +30,8 @@ const AllOrders = () => {
   }, []);
 
   return (
-    <div className="p-6 space-y-4">
-      <h1 className="text-2xl font-bold">All Orders</h1>
+    <div className="p-4 sm:p-6 space-y-4 max-w-5xl mx-auto">
+      <h1 className="text-xl sm:text-2xl font-bold">All Orders</h1>
       {allOrders.length === 0 ? (
         <p>No orders found.</p>
       ) : (

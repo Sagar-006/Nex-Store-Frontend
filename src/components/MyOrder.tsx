@@ -21,13 +21,11 @@
 //   shippingAddress:shippingAddress;
 // }
 
-const MyOrder: React.FC<any> = ({order}) => {
-  console.log(order);
+export const MyOrder: React.FC<any> = ({ order }) => {
   return (
-    <div className="flex items-center justify-between p-4 rounded-lg shadow-md bg-white hover:shadow-lg transition">
-      
+    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 rounded-lg shadow-md bg-white hover:shadow-lg transition gap-4">
+      {/* Left User Info */}
       <div className="flex items-center gap-4">
-        
         <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 text-sm">
           {order?.shippingAddress?.firstname?.charAt(0) || "U"}
         </div>
@@ -39,8 +37,8 @@ const MyOrder: React.FC<any> = ({order}) => {
         </div>
       </div>
 
-     
-      <div className="flex-1 grid grid-cols-4 text-center text-sm text-gray-700">
+      {/* Right Order Info (grid) */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center text-sm text-gray-700 w-full sm:w-auto">
         <div>
           <p className="font-medium">#{order._id.slice(-5)}</p>
           <p className="text-xs text-gray-400">Order ID</p>
@@ -73,5 +71,3 @@ const MyOrder: React.FC<any> = ({order}) => {
     </div>
   );
 };
-
-export default MyOrder;

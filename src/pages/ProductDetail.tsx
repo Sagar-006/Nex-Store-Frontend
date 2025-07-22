@@ -53,41 +53,40 @@ const ProductDetail = () => {
         {loading ? (
           <Loading />
         ) : (
-          <div className="flex w-full h-screen items-center justify-center px-10">
+          <div className="flex flex-col lg:flex-row w-full min-h-screen items-center justify-center px-4 lg:px-10 gap-6">
             {/* Left: Image */}
             <motion.div
               initial={{ x: "-100%", opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="min-h-screen scroll-smooth w-1/2 flex justify-center"
+              className="w-full lg:w-1/2 flex justify-center"
             >
-              <div className="">
-                <img
-                  src={data?.image}
-                  alt={data?.name}
-                  className="max-h-[600px] object-contain"
-                />
-              </div>
+              <img
+                src={data?.image}
+                alt={data?.name}
+                className="max-h-[400px] lg:max-h-[600px] object-contain"
+              />
             </motion.div>
 
             {/* Right: Info */}
-            <div className="w-1/2 flex flex-col gap-2 px-10 mt-[600px]">
-              <h1 className="text-2xl md:text-3xl font-semibold text-black leading-tight">
+            <div className="w-full lg:w-1/2 flex flex-col gap-4 px-2 lg:px-10">
+              <h1 className="text-xl md:text-2xl lg:text-3xl font-semibold text-black leading-tight">
                 {data?.name}
               </h1>
+
               <div>
                 <span className="text-sm font-semibold text-black">
                   Details:
                 </span>{" "}
-                <span className="text-md text-gray-800">
+                <span className="text-sm md:text-md text-gray-800">
                   {data?.description}
                 </span>
               </div>
 
               {/* Select Size */}
-              <div className="mt-6">
+              <div className="mt-4">
                 <p className="font-semibold mb-2">SELECT SIZE</p>
-                <div className="grid grid-cols-5 gap-2 max-w-md">
+                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2 max-w-md">
                   {sizes.map((size) => (
                     <button
                       key={size}
@@ -105,12 +104,12 @@ const ProductDetail = () => {
               </div>
 
               {/* Select Quantity */}
-              <div className="mt-6">
+              <div className="mt-4">
                 <p className="font-semibold mb-2">QUANTITY</p>
                 <select
                   value={quantity}
                   onChange={(e) => setQuantity(Number(e.target.value))}
-                  className="border border-gray-300 px-4 py-2 text-sm w-[120px]"
+                  className="border border-gray-300 px-4 py-2 text-sm w-full max-w-[160px]"
                 >
                   {[...Array(10)].map((_, i) => (
                     <option key={i + 1} value={i + 1}>
@@ -120,11 +119,11 @@ const ProductDetail = () => {
                 </select>
               </div>
 
+              {/* Add to Cart Button */}
               <motion.div
                 initial={{ x: "100%", opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
-                className="min-h-screen scroll-smooth"
               >
                 <button
                   onClick={() =>
@@ -132,7 +131,7 @@ const ProductDetail = () => {
                       `/cart?productId=${_id}&quantity=${quantity}&size=${selectedSize}`
                     )
                   }
-                  className="mt-6 w-[160px] cursor-pointer bg-black text-white py-2 rounded-full text-sm hover:bg-gray-800 transition"
+                  className="mt-6 w-full max-w-[160px] bg-black text-white py-2 rounded-full text-sm hover:bg-gray-800 transition"
                 >
                   Add to Cart
                 </button>
@@ -141,9 +140,7 @@ const ProductDetail = () => {
           </div>
         )}
       </div>
-      <div className="">
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 };

@@ -1,39 +1,42 @@
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export interface cardType {
-  title?:string;
-  price?:number;
-  img?:string;
-  
-} 
-// Featured products
-const ProductCard = ({item,_id}:any) => {
+  title?: string;
+  price?: number;
+  img?: string;
+}
+
+// Featured Product Card
+const ProductCard = ({ item, _id }: any) => {
   const navigate = useNavigate();
-  console.log(_id);
+
   const clickHandler = () => {
     navigate(`/products/${item._id}`);
-  }
+  };
+
   return (
     <div
-      className="w-full h-[720px] relative rounded cursor-pointer "
+      className="w-full h-[400px] sm:h-[500px] lg:h-[600px] relative rounded overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer"
       key={_id}
       onClick={clickHandler}
     >
       <img
         src={item.image}
-        alt="Product"
-        className="h-full w-full object-contain"
+        alt={item.name}
+        className="h-full w-full object-cover"
       />
 
-      <p className="absolute bottom-7 left-1/2 transform -translate-x-1/2 text-lg font-semibold tracking-wide bg-white/80 backdrop-blur-sm px-5 py-0 rounded-full text-black">
+      {/* Product Name */}
+      <p className="absolute bottom-12 left-1/2 transform -translate-x-1/2 text-sm sm:text-base lg:text-lg font-semibold bg-white/80 backdrop-blur-sm px-4 py-1 rounded-full text-black">
         {item.name}
       </p>
 
-      <button className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-black px-5 py-1 text-sm ">
+      {/* Explore Button */}
+      <button className="absolute bottom-3 left-1/2 transform -translate-x-1/2 text-black text-xs sm:text-sm bg-white px-4 py-1 rounded-full shadow hover:bg-gray-200 transition">
         EXPLORE
       </button>
     </div>
   );
-}
+};
 
-export default ProductCard
+export default ProductCard;

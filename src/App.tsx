@@ -7,7 +7,7 @@ import ProductList from "./pages/AllProductList";
 import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
-import OrderHistory from "./components/MyOrder";
+// import OrderHistory from "./components/MyOrder";
 import AllProductList from "./pages/AllProductList";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { Toaster } from "react-hot-toast";

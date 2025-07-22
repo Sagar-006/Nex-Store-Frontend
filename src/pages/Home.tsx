@@ -21,7 +21,7 @@ const Home = () => {
         <Navbar />
         <Hero />
         <FeatureSection />
-        <div className="flex justify-center">
+        <div className="flex justify-center px-4">
           <Products />
         </div>
         <div>

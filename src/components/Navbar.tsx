@@ -4,72 +4,118 @@ import { FaBagShopping } from "react-icons/fa6";
 import Logo from "@/assets/Nex Logo.jpeg";
 import { useNavigate } from "react-router-dom";
 import { SmoothCursor } from "@/components/magicui/SmoothCursor";
-
+import { useState } from "react";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <SmoothCursor>
-    <nav className="flex justify-center mx-4 items-center pt-4">
-      <div className="flex justify-between items-center px-8 py-4 text-black bg-white w-full mx-6">
-        <div className="flex items-center gap-10">
-          <div className="w-[40px] h-[40px] ">
-            <img src={Logo} alt="" className="rounded-sm" />
-          </div>
-          <h1
-            className="text-2xl font-semibold cursor-pointer"
-            onClick={() => navigate("/")}
-          >
-            NEX STORE
-          </h1>
-          <ul className="flex gap-4 text-md  items-center font-semibold">
-            <li
-              className="hover:border-b-2 border-black cursor-pointer"
-              onClick={() => navigate("/products?category=ALL")}
-            >
-              All
-            </li>
-            <li
-              className="hover:border-b-2 border-black cursor-pointer"
-              onClick={() => navigate("/products?category=MEN")}
-            >
-              Men
-            </li>
-            <li
-              className="hover:border-b-2 border-black cursor-pointer"
-              onClick={() => navigate("/products?category=WOMEN")}
-            >
-              Women
-            </li>
-          </ul>
-        </div>
-        <div className="flex items-center gap-4">
-          <div className="relative w-[450px]">
-            <input
-              type="text"
-              placeholder="search"
-              className="w-full border border-gray-900 px-4 py-2 text-black rounded-lg pr-10"
-            />
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 text-2xl  cursor-pointer">
-              <IoIosSearch />
+      <nav className="w-full bg-white shadow-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-4">
+            {/* Left - Logo and Brand */}
+            <div className="flex items-center gap-4">
+              <img src={Logo} alt="Logo" className="w-10 h-10 rounded-sm" />
+              <h1
+                className="text-xl sm:text-2xl font-bold cursor-pointer"
+                onClick={() => navigate("/")}
+              >
+                NEX STORE
+              </h1>
+            </div>
+
+            {/* Desktop Nav Links */}
+            <ul className="hidden md:flex gap-6 items-center text-sm font-semibold">
+              <li
+                className="hover:border-b-2 border-black cursor-pointer"
+                onClick={() => navigate("/products?category=ALL")}
+              >
+                All
+              </li>
+              <li
+                className="hover:border-b-2 border-black cursor-pointer"
+                onClick={() => navigate("/products?category=MEN")}
+              >
+                Men
+              </li>
+              <li
+                className="hover:border-b-2 border-black cursor-pointer"
+                onClick={() => navigate("/products?category=WOMEN")}
+              >
+                Women
+              </li>
+            </ul>
+
+            {/* Right - Search + Icons */}
+            <div className="hidden lg:flex items-center gap-4">
+              <div className="relative w-[300px] xl:w-[450px]">
+                <input
+                  type="text"
+                  placeholder="Search"
+                  className="w-full border border-gray-900 px-4 py-2 text-black rounded-lg pr-10"
+                />
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 text-2xl cursor-pointer">
+                  <IoIosSearch />
+                </div>
+              </div>
+              <button className="text-xl" onClick={() => navigate("/login")}>
+                <LuLogIn />
+              </button>
+              <button
+                className="text-xl"
+                onClick={() => navigate("/cart/allcartproducts")}
+              >
+                <FaBagShopping />
+              </button>
+            </div>
+
+            {/* Mobile Menu Toggle */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="text-2xl"
+              >
+                ☰
+              </button>
             </div>
           </div>
-          <div>
-            <button className="text-xl" onClick={() => navigate("/login")}>
-              <LuLogIn className="" />
-            </button>
-          </div>
-          <div className="cursor-pointer">
-            <button
-              className="text-xl"
-              onClick={() => navigate("/cart/allcartproducts")}
-            >
-              <FaBagShopping className="" />
-            </button>
-          </div>
+
+          {/* Mobile Dropdown */}
+          {isMenuOpen && (
+            <div className="md:hidden flex flex-col gap-4 pb-4">
+              <ul className="flex flex-col gap-2 font-semibold text-black">
+                <li onClick={() => navigate("/products?category=ALL")}>All</li>
+                <li onClick={() => navigate("/products?category=MEN")}>Men</li>
+                <li onClick={() => navigate("/products?category=WOMEN")}>
+                  Women
+                </li>
+              </ul>
+              <div className="relative w-full">
+                <input
+                  type="text"
+                  placeholder="Search"
+                  className="w-full border border-gray-900 px-4 py-2 text-black rounded-lg pr-10"
+                />
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 text-xl">
+                  <IoIosSearch />
+                </div>
+              </div>
+              <div className="flex gap-4 pt-2 text-xl">
+                <LuLogIn
+                  onClick={() => navigate("/login")}
+                  className="cursor-pointer"
+                />
+                <FaBagShopping
+                  onClick={() => navigate("/cart/allcartproducts")}
+                  className="cursor-pointer"
+                />
+              </div>
+            </div>
+          )}
         </div>
-      </div>
-    </nav>
+      </nav>
     </SmoothCursor>
   );
 };
