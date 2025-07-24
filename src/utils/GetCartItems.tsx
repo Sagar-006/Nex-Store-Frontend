@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Loading from "@/components/Loading";
-import { motion } from "framer-motion";
 import { ShoppingCart } from "lucide-react";
 import CartItem from "@/components/CartItem";
 import Navbar from "@/components/Navbar";

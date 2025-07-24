@@ -1,6 +1,6 @@
 import { IoIosArrowRoundForward } from "react-icons/io";
-import React, { useState } from "react";
-import { FiAlertCircle, FiLock } from "react-icons/fi";
+import React from "react";
+import {  FiLock } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Footer from "@/components/Footer";
@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 
 const SignUp = () => {
   
-  const {signupData,setSignupData,emailData,setEmailData} = useAuth();
+  const {signupData,setSignupData,emailData,} = useAuth();
   const navigate = useNavigate()
   const backend_url = import.meta.env.VITE_BACKEND_URL;
 
@@ -79,7 +79,7 @@ const SignUp = () => {
             <label className=" block mb-1 font-medium">
               Email <span className="text-red-600">*</span>
             </label>
-            <div className="bg-white text-black dark:bg-black dark:border-gray-600 dark:text-white dark:text-white relative ">
+            <div className="bg-white text-black dark:bg-black dark:border-gray-600 dark:text-white relative ">
               <input
                 type="email"
                 placeholder="Email"

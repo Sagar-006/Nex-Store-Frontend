@@ -26,7 +26,7 @@ const CartItem = ({ item, removeItemFromUI, refreshCart }: CartItemProps) => {
 
       //  console.log(res);
       toast.success("Item Removed!");
-
+      res;
       removeItemFromUI(productId);
     } catch (e) {
       console.log(e);

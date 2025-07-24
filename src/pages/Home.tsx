@@ -6,7 +6,7 @@ import Products from "@/components/Products";
 import Footer from "@/components/Footer";
 import Marquee from "@/components/Marquee";
 import { SmoothCursor } from "@/components/magicui/SmoothCursor";
-import GradientButton from "@/components/magicui/gradient-button";
+// import GradientButton from "@/components/magicui/gradient-button";
 
 
 const Home = () => {

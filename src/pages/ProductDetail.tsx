@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import { useAuth } from "@/hooks/useAuth";
 import axios from "axios";
 import { motion } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 type sizeType = string;
