@@ -15,7 +15,7 @@ export type Product = {
 const Products = () => {
   const baseUrl = import.meta.env.VITE_BACKEND_URL;
   const [allProducts, setAllProducts] = useState<Product[]>([]);
-  const { loading, setLoading } = useAuth();
+  const {  setLoading } = useAuth();
 
   const getData = async () => {
     try {

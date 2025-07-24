@@ -1,8 +1,6 @@
-import React from 'react'
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { useNavigate } from 'react-router-dom';
-import ShinyText from './magicui/shiny-text';
-import GradientButton from './magicui/gradient-button';
+
 
 const FeatureSection = () => {
   const navigate = useNavigate();

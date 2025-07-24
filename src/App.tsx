@@ -2,12 +2,8 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
-import AdminDashboard from "./pages/AdminDashboard";
-import ProductList from "./pages/AllProductList";
 import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
-import Checkout from "./pages/Checkout";
-// import OrderHistory from "./components/MyOrder";
 import AllProductList from "./pages/AllProductList";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { Toaster } from "react-hot-toast";
@@ -16,7 +12,6 @@ import AllOrders from "./pages/AllOrders";
 import AboutPage from "./pages/AboutPage";
 import Terms from "./pages/Terms";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
-// import Profile from './pages/Profile';
 
 function App() {
   return (

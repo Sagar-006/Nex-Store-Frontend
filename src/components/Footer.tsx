@@ -1,4 +1,3 @@
-import { useTheme } from "@/context/ThemeContext";
 import { Globe } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
