@@ -24,6 +24,7 @@ interface CartItem {
   productId: Product;
   quantity: number;
   size: string;
+  refreshCart:() => void;
 }
 
 const GetCartItems = () => {
@@ -42,25 +43,26 @@ const GetCartItems = () => {
   const [subtotal, setSubTotal] = useState(0);
   console.log(shippingAddress)
 
-  useEffect(() => {
-    const fetchCartItems = async () => {
-      try {
-        setLoading(true);
-        const res = await axios.get(`${backend_url}/product/cart`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        // console.log(res.data.findCart.items)
+  const fetchCartItems = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get(`${backend_url}/product/cart`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      // console.log(res.data.findCart.items)
 
-        setCartItems(res.data.findCart.items);
-        // console.log(res.data.findCart.items._id);
-        setLoading(false);
-      } catch (err) {
-        console.error("Failed to fetch cart items:", err);
-        setLoading(false);
-      }
-    };
+      setCartItems(res.data.findCart.items);
+      // console.log(res.data.findCart.items._id);
+      setLoading(false);
+    } catch (err) {
+      console.error("Failed to fetch cart items:", err);
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    
     fetchCartItems();
   }, [backend_url, token]);
 
@@ -154,7 +156,7 @@ const GetCartItems = () => {
       {loading ? (
         <Loading />
       ) : cartItems.length === 0 ? (
-        <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
+        <div className=" flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
           <h2 className="text-3xl font-semibold">
             Your Cart is <span className="text-red-600 font-bold">Empty!</span>
           </h2>
@@ -172,7 +174,7 @@ const GetCartItems = () => {
       ) : (
         <>
           {/* Cart & Summary Section */}
-          <div className="p-4 sm:p-6 mb-10 mx-auto max-w-7xl bg-white rounded-xl shadow-md mt-6 flex flex-col lg:flex-row gap-8">
+          <div className="p-4 sm:p-6 mb-10 mx-auto max-w-7xl bg-white text-black dark:bg-black dark:text-white rounded-xl shadow-md mt-6 flex flex-col lg:flex-row gap-8">
             {/* Cart Items */}
             <div className="w-full lg:w-2/3">
               <h2 className="text-2xl font-semibold mb-6">Cart</h2>
@@ -180,13 +182,14 @@ const GetCartItems = () => {
                 <CartItem
                   key={index}
                   item={item}
+                  refreshCart={fetchCartItems}
                   removeItemFromUI={removeItemFromUI}
                 />
               ))}
             </div>
 
             {/* Order Summary */}
-            <div className="w-full lg:w-1/3 bg-white p-6 rounded-lg shadow-md h-fit">
+            <div className="w-full lg:w-1/3 bg-white text-black dark:bg-black dark:text-white dark:border dark:border-gray-700 p-6 rounded-lg shadow-md h-fit">
               <h3 className="text-xl font-semibold mb-4">Order Summary</h3>
               <div className="flex justify-between py-2 text-gray-600">
                 <span>Subtotal</span>
@@ -206,7 +209,7 @@ const GetCartItems = () => {
                 <span>₹{finalPrice}.00</span>
               </div>
               <button
-                className="mt-6 w-full bg-black text-white py-3 rounded-lg font-semibold"
+                className="mt-6 w-full bg-black text-white dark:border dark:border-gray-700 py-3 rounded-lg font-semibold"
                 onClick={orderCreate}
               >
                 Checkout
@@ -230,7 +233,7 @@ const GetCartItems = () => {
             <h2 className="text-2xl font-semibold mb-1">Shipping address</h2>
             <form
               onSubmit={handleSubmit}
-              className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4"
+              className=" grid grid-cols-1 md:grid-cols-2 gap-6 mt-4"
             >
               <div>
                 <label className="block text-sm font-medium mb-1">
@@ -287,16 +290,14 @@ const GetCartItems = () => {
                   name="city"
                   required
                   type="text"
-                  className="w-full border border-gray-300 rounded px-3 py-2"
+                  className="w-full border border-gray-300  rounded px-3 py-2"
                 />
               </div>
-              <div>
-               
-              </div>
+              <div></div>
               <div className="md:col-span-2 flex justify-end">
                 <button
                   type="submit"
-                  className="bg-black text-white px-6 py-3 font-semibold rounded hover:bg-gray-800"
+                  className="bg-black text-white dark:border dark:border-gray-700 mb-6 px-6 py-3 font-semibold rounded hover:bg-gray-800"
                 >
                   Add address
                 </button>

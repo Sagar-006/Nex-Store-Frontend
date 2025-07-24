@@ -70,7 +70,7 @@ const Login = () => {
       <Navbar />
       <div>
         {login ? (
-          <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
+          <div className="bg-white  text-black dark:bg-black gray-900 dark:text-white flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
             <h2 className="text-3xl font-semibold">
               You are <span className="text-red-600 font-bold">Logged IN!</span>
             </h2>
@@ -89,7 +89,7 @@ const Login = () => {
             </ShimmerButton>
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center min-h-screen bg-white px-4">
+          <div className="bg-white  text-black dark:bg-black gray-900 dark:text-white flex flex-col items-center justify-center min-h-screen  px-4">
             <h1 className="text-5xl font-black tracking-widest mb-6">
               WELCOME
             </h1>
@@ -103,17 +103,15 @@ const Login = () => {
               className="w-full max-w-md flex flex-col gap-4"
             >
               {/* Email */}
-              <div>
+              <div className="">
                 <label className="block mb-1 font-medium">
                   Email <span className="text-red-600">*</span>
                 </label>
-                <div className="relative">
+                <div className="relative bg-white  text-black dark:bg-black gray-900 dark:text-white">
                   <input
                     type="email"
                     placeholder="Email"
-                    className={`w-full border px-4 py-3 text-sm ${
-                      emailData ? " text-black" : "border-black"
-                    }`}
+                    className={`w-full border px-4 py-3 text-sm`}
                     required
                     name="email"
                     onChange={changeHandler}
@@ -123,17 +121,17 @@ const Login = () => {
               )} */}
                 </div>
                 {emailData && (
-                  <p className="text-sm text-black mt-1">Enter email address</p>
+                  <p className="text-sm  mt-1">Enter email address</p>
                 )}
               </div>
 
               {/* Password */}
-              <div>
+              <div className="bg-white  text-black dark:bg-black gray-900 dark:text-white">
                 <label className="block mb-1 font-medium">Password</label>
                 <input
                   type="password"
                   placeholder="Password"
-                  className="w-full border border-black px-4 py-3 text-sm"
+                  className="w-full border px-4 py-3 text-sm"
                   required
                   onChange={changeHandler}
                   name="password"
@@ -143,7 +141,7 @@ const Login = () => {
               {/* Submit */}
               <button
                 type="submit"
-                className="bg-black text-white py-3 font-semibold text-sm w-full"
+                className="bg-black text-white dark:border-2 py-3 font-semibold text-sm w-full"
               >
                 LOGIN
               </button>

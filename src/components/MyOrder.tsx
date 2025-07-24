@@ -23,14 +23,14 @@
 
 export const MyOrder: React.FC<any> = ({ order }) => {
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 rounded-lg shadow-md bg-white hover:shadow-lg transition gap-4">
+    <div className=" flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 rounded-lg shadow-md hover:shadow-lg transition gap-4">
       {/* Left User Info */}
       <div className="flex items-center gap-4">
         <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 text-sm">
           {order?.shippingAddress?.firstname?.charAt(0) || "U"}
         </div>
         <div>
-          <p className="font-semibold text-gray-900">
+          <p className="font-semibold bg-white text-black dark:bg-black dark:text-white">
             {order?.shippingAddress?.firstname || "Unknown User"}
           </p>
           <p className="text-sm text-gray-500">{order?.user?.email}</p>

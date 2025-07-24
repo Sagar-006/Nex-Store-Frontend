@@ -50,7 +50,7 @@ const SignUp = () => {
   return (
     <div>
       <Navbar />
-      <div className="flex flex-col items-center justify-center min-h-screen bg-white px-4">
+      <div className="flex flex-col items-center justify-center min-h-screen  px-4 bg-white  text-black dark:bg-black gray-900 dark:text-white">
         <h1 className="text-5xl font-black tracking-widest mb-6">WELCOME</h1>
 
         <p className="text-center font-medium text-lg mb-6 tracking-wider">
@@ -67,7 +67,7 @@ const SignUp = () => {
             <input
               type="text"
               placeholder="Username"
-              className="w-full border border-black px-4 py-3 text-sm"
+              className="w-full border border-black dark:border-gray-600 px-4 py-3 text-sm"
               required
               onChange={changeHandler}
               name="username"
@@ -75,16 +75,16 @@ const SignUp = () => {
           </div>
 
           {/* Email */}
-          <div>
-            <label className="block mb-1 font-medium">
+          <div className="">
+            <label className=" block mb-1 font-medium">
               Email <span className="text-red-600">*</span>
             </label>
-            <div className="relative">
+            <div className="bg-white text-black dark:bg-black dark:border-gray-600 dark:text-white dark:text-white relative ">
               <input
                 type="email"
                 placeholder="Email"
                 className={`w-full border px-4 py-3 text-sm ${
-                  emailData ? "border-black text-black" : "border-black"
+                  emailData ? "border-black text-black dark:text-white dark:border-gray-600" : "border-black"
                 }`}
                 required
                 onChange={changeHandler}
@@ -92,7 +92,7 @@ const SignUp = () => {
               />
             </div>
             {emailData && (
-              <p className="text-sm text-black mt-1">Enter email address</p>
+              <p className="text-sm  text-black mt-1">Enter email address</p>
             )}
           </div>
 
@@ -102,7 +102,7 @@ const SignUp = () => {
             <input
               type="password"
               placeholder="Password"
-              className="w-full border border-black px-4 py-3 text-sm"
+              className="w-full border border-black dark:border-gray-600 px-4 py-3 text-sm"
               required
               onChange={changeHandler}
               name="password"
@@ -112,7 +112,7 @@ const SignUp = () => {
           {/* Submit */}
           <button
             type="submit"
-            className="bg-black text-white py-3 font-semibold text-sm w-full"
+            className="bg-black text-white dark:border-gray-700 py-3 font-semibold text-sm w-full"
           >
             SIGNUP
           </button>

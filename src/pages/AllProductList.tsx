@@ -42,20 +42,20 @@ const AllProductList = () => {
   }, [category]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-white  text-black dark:bg-black gray-900 dark:text-white ">
       {loading ? (
         <Loading />
       ) : (
         <>
           <Navbar />
 
-          <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <main className=" flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             {/* <h1 className="text-2xl font-bold mb-4 capitalize">
               Showing{" "}
               {category === "ALL" ? "All Products" : category + " Products"}
             </h1> */}
 
-            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <div className=" grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {allProducts.map((item) => (
                 <AllProductCard
                   key={item._id}

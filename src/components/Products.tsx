@@ -34,8 +34,8 @@ const Products = () => {
   }, []);
 
   return (
-    <div className="max-w-screen-xl mx-auto px-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-6 mt-6 pb-12">
+    <div className="max-w-screen-xl mx-auto px-4 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-6 mt-6 pb-12 ">
         {allProducts.map((item) => (
           <ProductCard key={item._id} _id={item._id} item={item} />
         ))}

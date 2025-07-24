@@ -1,6 +1,6 @@
 const Terms = () => {
   return (
-    <div className="min-h-screen bg-white text-black flex items-center justify-center px-4 py-10">
+    <div className="min-h-screen bg-white text-black dark:bg-black  dark:text-white flex items-center justify-center px-4 py-10">
       <div className="max-w-3xl">
         <h1 className="text-3xl font-bold mb-6 text-center">
           Terms and Conditions

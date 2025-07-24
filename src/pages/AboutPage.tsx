@@ -1,6 +1,6 @@
 const AboutPage = () => {
   return (
-    <div className="bg-white text-black min-h-screen flex flex-col items-center py-16 px-6">
+    <div className="bg-white text-black dark:bg-black  dark:text-white min-h-screen flex flex-col items-center py-16 px-6">
       <div className="max-w-3xl w-full">
         <h1 className="text-3xl font-bold text-center mb-6">About NEX Store</h1>
 

@@ -7,31 +7,57 @@ import { FiMinus, FiPlus } from "react-icons/fi";
 interface CartItemProps {
   item: any;
   removeItemFromUI:(id:string) => void;
+  refreshCart:() => void;
 }
 
-const CartItem = ({item,removeItemFromUI }:CartItemProps) => {
-    const backend_url = import.meta.env.VITE_BACKEND_URL;
-    console.log(item);
-    const [itemQuantity,setItemQuantity] = useState<number>(1);
-    const deleteItem = async(productId:string) => {
-    try{
+const CartItem = ({ item, removeItemFromUI, refreshCart }: CartItemProps) => {
+  const backend_url = import.meta.env.VITE_BACKEND_URL;
+  console.log(item);
+  const [itemQuantity, setItemQuantity] = useState<number>(item.quantity);
+  const deleteItem = async (productId: string) => {
+    try {
       const token = localStorage.getItem("Authorization");
-         const res = await axios.delete(`${backend_url}/product/cart/remove`, {
-           data: { productId },
-           headers:{
-            Authorization:`Bearer ${token}`
-           }
-         });
+      const res = await axios.delete(`${backend_url}/product/cart/remove`, {
+        data: { productId },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-        //  console.log(res);
+      //  console.log(res);
       toast.success("Item Removed!");
-      
-      removeItemFromUI(productId)
 
-    }catch(e){
+      removeItemFromUI(productId);
+    } catch (e) {
       console.log(e);
     }
-  }
+  };
+  const updateQuantity = async (newQty: number) => {
+    if (newQty < 1) return; // Don't allow less than 1
+
+    try {
+      const token = localStorage.getItem("Authorization");
+      await axios.put(
+        `${backend_url}/product/cart`,
+        {
+          productId: item.productId._id,
+          quantity: newQty,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setItemQuantity(newQty);
+      toast.success("Quantity updated");
+      refreshCart();
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to update quantity");
+    }
+  };
   return (
     <div className="">
       <div className="flex items-start gap-4 mb-6 border-b pb-4">
@@ -57,13 +83,13 @@ const CartItem = ({item,removeItemFromUI }:CartItemProps) => {
               />
             </div>
             <div className="flex items-center gap-4 ml-6">
-              <div>
+              <div onClick={() => updateQuantity(itemQuantity - 1)}>
                 <FiMinus />
               </div>
               <div>
-                <span>{item.quantity}</span>
+                <span>{itemQuantity}</span>
               </div>
-              <div>
+              <div onClick={() => updateQuantity(itemQuantity + 1)}>
                 <FiPlus className="cursor-pointer" />
               </div>
             </div>
@@ -73,7 +99,6 @@ const CartItem = ({item,removeItemFromUI }:CartItemProps) => {
           ₹{item.productId.price}.00
         </div>
       </div>
-      
     </div>
   );
 };

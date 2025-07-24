@@ -5,15 +5,22 @@ import Logo from "@/assets/Nex Logo.jpeg";
 import { useNavigate } from "react-router-dom";
 import { SmoothCursor } from "@/components/magicui/SmoothCursor";
 import { useState } from "react";
+import { MdOutlineDarkMode } from "react-icons/md";
+import { MdOutlineLightMode } from "react-icons/md";
+import { useTheme } from "@/context/ThemeContext";
+
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+    const {toggleTheme,theme} = useTheme()
+  
+
   return (
     <SmoothCursor>
-      <nav className="w-full bg-white shadow-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className="w-full bg-white text-black dark:bg-black dark:text-white shadow-md">
+        <div className="max-w-7xl  mx-auto px-4 sm:px-6 lg:px-0">
           <div className="flex justify-between items-center py-4">
             {/* Left - Logo and Brand */}
             <div className="flex items-center gap-4">
@@ -27,7 +34,7 @@ const Navbar = () => {
             </div>
 
             {/* Desktop Nav Links */}
-            <ul className="hidden md:flex gap-6 items-center text-sm font-semibold">
+            <ul className="hidden mr-[280px] md:flex gap-6 items-baseline text-sm font-semibold">
               <li
                 className="hover:border-b-2 border-black cursor-pointer"
                 onClick={() => navigate("/products?category=ALL")}
@@ -49,14 +56,14 @@ const Navbar = () => {
             </ul>
 
             {/* Right - Search + Icons */}
-            <div className="hidden lg:flex items-center gap-4">
+            <div className="hidden lg:flex items-center gap-4 bg-white text-black dark:bg-black  dark:text-white ml-8">
               <div className="relative w-[300px] xl:w-[450px]">
                 <input
                   type="text"
                   placeholder="Search"
-                  className="w-full border border-gray-900 px-4 py-2 text-black rounded-lg pr-10"
+                  className="w-full border border-gray-900 px-4 py-2 rounded-lg pr-10"
                 />
-                <div className="absolute right-3 top-1/2 -translate-y-1/2 text-2xl cursor-pointer">
+                <div className="absolute   right-3 top-1/2 -translate-y-1/2 text-2xl cursor-pointer">
                   <IoIosSearch />
                 </div>
               </div>
@@ -68,6 +75,18 @@ const Navbar = () => {
                 onClick={() => navigate("/cart/allcartproducts")}
               >
                 <FaBagShopping />
+              </button>
+            </div>
+            <div className="text-2xl">
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+              >
+                {theme === "light" ? (
+                  <MdOutlineDarkMode className="text-black" />
+                ) : (
+                  <MdOutlineLightMode className="text-white" />
+                )}
               </button>
             </div>
 

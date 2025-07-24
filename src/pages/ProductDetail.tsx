@@ -49,11 +49,11 @@ const ProductDetail = () => {
   return (
     <div className="">
       <Navbar />
-      <div className="flex items-center justify-center">
+      <div className="bg-white  text-black dark:bg-black gray-900 dark:text-white flex items-center justify-center">
         {loading ? (
           <Loading />
         ) : (
-          <div className="flex flex-col lg:flex-row w-full min-h-screen items-center justify-center px-4 lg:px-10 gap-6">
+          <div className="bg-white  text-black dark:bg-black gray-900 dark:text-white flex flex-col lg:flex-row w-full min-h-screen items-center justify-center px-4 lg:px-10 gap-6">
             {/* Left: Image */}
             <motion.div
               initial={{ x: "-100%", opacity: 0 }}
@@ -69,22 +69,20 @@ const ProductDetail = () => {
             </motion.div>
 
             {/* Right: Info */}
-            <div className="w-full lg:w-1/2 flex flex-col gap-4 px-2 lg:px-10">
-              <h1 className="text-xl md:text-2xl lg:text-3xl font-semibold text-black leading-tight">
+            <div className=" bg-white  text-black dark:bg-black gray-900 dark:text-white w-full lg:w-1/2 flex flex-col gap-4 px-2 lg:px-10">
+              <h1 className="text-xl md:text-2xl lg:text-3xl font-semibold leading-tight">
                 {data?.name}
               </h1>
 
               <div>
-                <span className="text-sm font-semibold text-black">
-                  Details:
-                </span>{" "}
+                <span className="text-sm font-semibold ">Details:</span>{" "}
                 <span className="text-sm md:text-md text-gray-800">
                   {data?.description}
                 </span>
               </div>
 
               {/* Select Size */}
-              <div className="mt-4">
+              <div className="bg-white  text-black dark:bg-black gray-900 dark:text-white mt-4">
                 <p className="font-semibold mb-2">SELECT SIZE</p>
                 <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2 max-w-md">
                   {sizes.map((size) => (
@@ -94,7 +92,7 @@ const ProductDetail = () => {
                       className={`border py-2 text-sm ${
                         selectedSize === size
                           ? "border-black bg-black text-white"
-                          : "border-gray-300 text-black"
+                          : "border-gray-300 text-black bg-white"
                       }`}
                     >
                       {size}
@@ -124,6 +122,7 @@ const ProductDetail = () => {
                 initial={{ x: "100%", opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
+                className=""
               >
                 <button
                   onClick={() =>
