@@ -1,6 +1,6 @@
 import { IoIosArrowRoundForward } from "react-icons/io";
-import React, { useState } from "react";
-import { FiAlertCircle, FiLock } from "react-icons/fi";
+import React from "react";
+import { FiLock } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "@/components/Navbar";
@@ -12,7 +12,7 @@ import { ShimmerButton } from "@/components/magicui/shimmer-button";
 
 const Login = () => {
   const backend_url = import.meta.env.VITE_BACKEND_URL;
-  const { loginData, setLoginData, emailData, setEmailData, login, setLogin } =
+  const { loginData, setLoginData, emailData, login, setLogin } =
     useAuth();
   const navigate = useNavigate();
 
